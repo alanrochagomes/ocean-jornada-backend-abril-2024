@@ -1,7 +1,7 @@
 const express = require('express')
 const { MongoClient, ObjectId } = require('mongodb')
 
-const dbUrl = 'mongodb+srv://admin:C6fvWv6tUrtQgWiB@cluster0.7h4ejsd.mongodb.net'
+const dbUrl = 'mongodb+srv://admin:EWfIliI8gEiRjjxo@cluster0.qrd2qpk.mongodb.net'
 const dbName = 'ocean-jornada-backend'
 
 async function main() {
