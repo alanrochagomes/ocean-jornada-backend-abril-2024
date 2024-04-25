@@ -66,7 +66,7 @@ async function main() {
     if (!item.nome) {
       return res.status(400).send("Corpo da requisição sem o campo 'nome'.")
     }
-    
+
     // Adicionamos o item obtido na collection
     await collection.insertOne(item)
 
@@ -82,11 +82,19 @@ async function main() {
     // Obtemos o corpo da requisição para saber qual o novo valor
     const novoItem = req.body
 
+    if (!novoItem.nome) {
+      return res.status(400).send("Corpo da requisição sem o campo 'nome'.")
+    }
+
     // Atualizamos o item na collection
-    collection.updateOne(
+    const teste = await collection.updateOne(
       { _id: new ObjectId(id) },
       { $set: novoItem }
     )
+
+    if (updateResult.matchedCount === 0) {
+      return res.status(404).send('Item não encontrado.')
+    }
 
     // Enviamos uma mensagem de sucesso
     res.send('Item atualizado com sucesso: ' + id)
@@ -98,7 +106,9 @@ async function main() {
     const id = req.params.id
 
     // Removemos o item da collection
-    await collection.deleteOne({ _id: new ObjectId(id) })
+    const deleteResult = await collection.deleteOne({ _id: new ObjectId(id) })
+
+    if res.status(404).send("Item não encontrado.")
 
     // Exibimos uma mensagem de sucesso
     res.send('Item removido com sucesso: ' + id)
